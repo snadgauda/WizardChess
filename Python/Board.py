@@ -1,2 +1,4 @@
+import "Piece.py"
+
 class Board:
-    __init__
+    __init__(self, ):

@@ -37,3 +37,15 @@ class Board:
             pass # call the move knight method
         else:
             pass # just straight up move da piece.
+
+    def initSerial(self, port, baudRate = 9600):
+        self.ser = serial.Serial(port, baudRate)
+
+
+    def writeToSerial(self, oldX, oldY, newX, newY):
+        strWrite = str(oldX) + str(oldY) + str(newX) + str(newY)
+        if not self.ser.is_open:
+            self.ser.open()
+        self.ser.write(strWrite.encode)
+        self.ser.close()
+

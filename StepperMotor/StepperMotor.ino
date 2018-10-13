@@ -15,6 +15,7 @@
 */
 
 #include <Stepper.h>
+#include <Servo.h>
 
 #define STEP_X_1 4
 #define STEP_X_2 5
@@ -27,6 +28,13 @@
 #define STEP_Y_4 11
 
 #define STEP_CONST 1
+
+#define SERVO_PIN 5
+
+#define SERVO_UP 0
+#define SERVO_DOWN 180
+
+Servo myServo;
 
 // change this to fit the number of steps per revolution for your motor
 const int stepsPerRevolution = 200;
@@ -53,6 +61,8 @@ void setup() {
   stepperY.setSpeed(stepperSpeed);
   // initialize the serial port:
   Serial.begin(9600);
+
+  myServo.attach(SERVO_PIN);
   /*
     stepperX.step(stepsPerRevolution);
     stepperY.step(stepsPerRevolution);
@@ -74,14 +84,19 @@ void loop() {
   if (Serial.available()) {
     String inp = Serial.readString();
     int oldX = inp[0] - '0';
-    int oldY = inp[1]- '0';
-    int newX = inp[2]- '0';
-    int newY = inp[3]- '0';
+    int oldY = inp[1] - '0';
+    int newX = inp[2] - '0';
+    int newY = inp[3] - '0';
     doStep(oldX, oldY, newX, newY);
   }
 }
 
 void doStep(int oldX, int oldY, int newX, int newY) {
+  stepperX.step(STEP_CONST * oldX);
+  delay(1);
+  stepperY.step(STEP_CONST * oldY);
+  delay(1);
+  myServo.write(SERVO_UP);
   int diffX = STEP_CONST * (newX - oldX);
   int diffY = STEP_CONST * (newY - oldY);
   if (diffX == 0) {
@@ -96,5 +111,13 @@ void doStep(int oldX, int oldY, int newX, int newY) {
       stepperY.step(1);
       delay(1);
     }
+    delay(1);
+    myServo.write(SERVO_DOWN);
+    delay(1);
+    stepperX.step(-1*STEP_CONST * newX);
+    delay(1);
+    stepperY.step(-1*STEP_CONST * newY);
+    delay(1);
   }
+
 }

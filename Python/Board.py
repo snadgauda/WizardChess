@@ -29,3 +29,14 @@ class Board:
         for i in range(1,9):
             self.chessBoard[i][6] = blackPawn
 
+        def initSerial(self, port, baudRate = 9600):
+            self.ser = serial.Serial(port, baudRate)
+
+
+        def writeToSerial(self, oldX, oldY, newX, newY):
+            strWrite = str(oldX) + str(oldY) + str(newX) + str(newY)
+            if not self.ser.is_open:
+                self.ser.open()
+            self.ser.write(strWrite.encode)
+            ser.close()
+

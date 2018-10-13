@@ -29,7 +29,7 @@
 
 #define STEP_CONST 1
 
-#define SERVO_PIN 5
+#define SERVO_PIN 3
 
 #define SERVO_UP 0
 #define SERVO_DOWN 180

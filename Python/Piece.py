@@ -20,7 +20,7 @@ class Piece:
     def isBlank(self):
         return self.team == "EMPTY"
     
-    def isKnite(self):
+    def isKnight(self):
         return self.name == "KNIGHT"
     
     def getName(self):

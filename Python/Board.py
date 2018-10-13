@@ -29,3 +29,11 @@ class Board:
         for i in range(1,9):
             self.chessBoard[i][6] = blackPawn
 
+    def movePiece(self, oldX, oldY, newX, newY):
+        if not self.chessBoard[newX][newY].isBlank():
+            pass # move to queue
+
+        if self.chessBoard[oldX][oldY].isKnight():
+            pass # call the move knight method
+        else:
+            pass # just straight up move da piece.

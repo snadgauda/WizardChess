@@ -38,5 +38,5 @@ class Board:
             if not self.ser.is_open:
                 self.ser.open()
             self.ser.write(strWrite.encode)
-            ser.close()
+            self.ser.close()
 

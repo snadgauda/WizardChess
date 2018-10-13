@@ -1,4 +1,4 @@
-import  Piece.Piece
+import Piece
 import serial
 
 class Board:

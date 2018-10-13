@@ -4,6 +4,8 @@ class Piece:
     def __init__(self, team = "EMPTY", name = "EMPTY"):
         self.team = team
         self.name = name
+        self.searched = False
+
     
     def setTeam(self, newTeam):
         self.team = newTeam 

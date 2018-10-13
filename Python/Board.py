@@ -29,6 +29,8 @@ class Board:
         for i in range(1,9):
             self.chessBoard[i][6] = blackPawn
 
+        self.initSerial(4) # this is the port number, which varies with computer.
+
     def movePiece(self, oldX, oldY, newX, newY):
         if not self.chessBoard[newX][newY].isBlank():
             # there is something to capture, move it out of the way
@@ -46,7 +48,24 @@ class Board:
 
 
     def moveToQueue(self, x, y):
-        pass # breadth first search to find a path to the queue.
+        # breadth first search to find a path to the queue.
+        self.resetBoardForSearch()
+        cellsToSearch = [(x, y)]
+
+        targetCellPositions = [(0,0), (9, 0)]
+
+        yCoor = 0
+        while (self.chessBoard[0][yCoor].isNone()):
+            pass
+
+
+
+    def resetBoardForSearch(self):
+        for col in self.chessBoard:
+            for cell in col:
+                cell.searched = False
+
+
 
     def initSerial(self, port, baudRate = 9600):
         self.ser = serial.Serial(port, baudRate)

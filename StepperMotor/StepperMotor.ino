@@ -27,19 +27,19 @@
 #define STEP_Y_3 10
 #define STEP_Y_4 11
 
-#define STEP_CONST 1
+#define STEP_CONST 100
 
 #define SERVO_PIN 3
 
 #define SERVO_UP 0
-#define SERVO_DOWN 180
+#define SERVO_DOWN 90
 
 Servo myServo;
 
 // change this to fit the number of steps per revolution for your motor
 const int stepsPerRevolution = 200;
 // set the speed at 60 rpm:
-const int stepperSpeed = 200;
+const int stepperSpeed = 60;
 
 // initialize the stepper library on pins 8 through 11:
 Stepper stepperX(stepsPerRevolution, STEP_X_1, STEP_X_2, STEP_X_3, STEP_X_4);
@@ -70,14 +70,15 @@ void setup() {
     stepperX.step(-stepsPerRevolution);
     stepperY.step(-stepsPerRevolution);
   */
-  //
-  //  for (int i = 0; i < 200; i++)
-  //  {
-  //    stepperX.step(1);
-  //    delay(1);
-  //    stepperY.step(2);
-  //    delay(1);
-  //  }
+moveStepperFunc(20);
+delay(500);
+myServo.write(SERVO_UP);
+delay(500);
+moveStepperFunc(280);
+delay(500);
+myServo.write(SERVO_DOWN);
+delay(500);
+moveStepperFuncOpp(300);
 }
 
 void loop() {
@@ -107,17 +108,34 @@ void doStep(int oldX, int oldY, int newX, int newY) {
     for (int i = 0; i < diffX; i++)
     {
       stepperX.step(1);
-      delay(1);
-      stepperY.step(1);
-      delay(1);
+      delay(30);
+      stepperY.step(-1);
+      delay(30);
     }
     delay(1);
     myServo.write(SERVO_DOWN);
     delay(1);
-    stepperX.step(-1*STEP_CONST * newX);
-    delay(1);
-    stepperY.step(-1*STEP_CONST * newY);
     delay(1);
   }
 
+}
+
+void moveStepperFunc(int steps){
+  for (int i = 0; i < steps; i++)
+ {
+   stepperX.step(1);
+    delay(1);
+   stepperY.step(-1);
+    delay(1);
+  }
+}
+
+void moveStepperFuncOpp(int steps){
+  for (int i = 0; i < steps; i++)
+ {
+   stepperX.step(-1);
+    delay(1);
+   stepperY.step(1);
+    delay(1);
+  }
 }
